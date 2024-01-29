@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 require('./startup/logging')();
 require('./startup/db')();
-const {port} = require('./startup/config');
+const {port, } = require('./startup/config');
 const jwt = require('jsonwebtoken');
 require('./startup/routes')(app); 
 // require('./controllers/admin-app/cron')();

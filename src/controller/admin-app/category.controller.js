@@ -52,6 +52,7 @@ class CategoryController {
         'page_id',
         'title',
         'img',
+        'music_type',
         [sequelize.literal('page.name'), 'name']
       ],
         include:[

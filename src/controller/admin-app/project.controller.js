@@ -1,6 +1,7 @@
-const {Project,Category, User, Fact, Images, Url} = require('../../../models/init-models')
+const {Project,Category, User, Fact, Images, Url, Page} = require('../../../models/init-models')
 const HttpException = require('../../utils/HttpException.utils')
 const {validationResult, body} = require('express-validator')
+const sequelize = require('sequelize')
 const fs = require('fs')
 class ProjectController {
   getOne = async(req,res,next) => {
@@ -11,7 +12,17 @@ class ProjectController {
           include:[
             {
               model: Category,
-              as: 'category'
+              as: 'category',
+              attributes:[
+                'id',
+                'page_id',
+                'title',
+                'img',
+                'music_type'
+              ],
+              include:[
+                {model: Page, as: 'page'}
+              ]
             },
             {
               model: Fact,
@@ -42,7 +53,17 @@ class ProjectController {
         include:[
           {
             model: Category,
-            as: 'category'
+            as: 'category',
+            attributes:[
+              'id',
+              'page_id',
+              'title',
+              'img',
+              'music_type'
+            ],
+            include:[
+              {model: Page, as: 'page'}
+            ]
           },
           {
             model: Fact,
@@ -111,7 +132,6 @@ class ProjectController {
       if(!model){
         throw HttpException(404, 'Malumot topilmadi')
       }
-      console.log(body.change_img);
       if(body.change_img === 'true'){
         this.#deletePicture(model.aftor_img);
         model.aftor_img = req.files.project_img ? req.files.project_img[0].filename : ""

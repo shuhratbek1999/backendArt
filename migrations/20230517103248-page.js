@@ -5,28 +5,16 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     const transaction = await queryInterface.sequelize.transaction();
        try{
-        await queryInterface.createTable("category", {
+        await queryInterface.createTable("page", {
           id:{
             type: Sequelize.INTEGER,
             autoIncrement: true,
             allowNull: false,
             primaryKey: true
           },
-          page_id:{
-            type: Sequelize.INTEGER,
-            allowNull: false,
+          name:{
+            type: Sequelize.STRING,
             unique: true
-          },
-          title:{
-            type: Sequelize.STRING,
-            allowNull: false
-          },
-          img:{
-            type: Sequelize.STRING,
-            allowNull: false
-          },
-          music_type:{
-            type: Sequelize.STRING
           }
         }, {transaction}
         );
@@ -41,7 +29,7 @@ module.exports = {
       async down (queryInterface, Sequelize) {
         const transaction = await queryInterface.sequelize.transaction();
         try {
-          await queryInterface.dropTable('category', { transaction });
+          await queryInterface.dropTable('page', { transaction });
           
           transaction.commit();
         } catch (errors) {

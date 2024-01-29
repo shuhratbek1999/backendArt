@@ -104,7 +104,6 @@ class UserController {
             const pasXash = await bcrypt.hash(data.password.toString(), salt);
             delete data['password'];
             data['password'] = pasXash;
-            console.log(data)
             const model = await User.findOne({
                 where:{
                     id: req.params.id

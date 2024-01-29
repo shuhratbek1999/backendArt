@@ -1,13 +1,17 @@
-const {Category, Project, Images, Fact, Url} = require('../../../models/init-models')
+const {Category, Project, Images, Fact, Url, Page} = require('../../../models/init-models')
 const HttpException = require('../../utils/HttpException.utils')
 const {validationResult} = require('express-validator')
 const fs = require('fs')
+const sequelize = require('sequelize');
 class CategoryController {
   getOne = async(req,res,next) => {
       let model = await Category.findOne({
           where:{
             id: req.params.id
-          }
+          },
+          include:[
+            {model: Page, as: 'page'}
+          ]
       })
       if(!model){
         throw new HttpException(404, "bu id da malumot yo\'q")
@@ -28,11 +32,32 @@ class CategoryController {
           include:[
             {model: Images, as: 'Images'},
             {model: Fact, as: 'Fact'},
-            {model: Url, as: 'Url'},
+            {model: Url, as: 'Url'}
           ]
-        }
+        },
+        {model: Page, as: 'page'}
       ]
     }); 
+    res.status(200).send({
+        error: false,
+        error_code: 200,
+        message: 'Malumotlar chiqdi',
+        data: model
+    });
+   }
+   getAlls = async(req,res,next) => {
+    const model = await Category.findAll({
+      attributes:[
+        'id',
+        'page_id',
+        'title',
+        'img',
+        [sequelize.literal('page.name'), 'name']
+      ],
+        include:[
+          {model: Page, as: 'page', attributes: []}
+        ]
+    }) 
     res.status(200).send({
         error: false,
         error_code: 200,
@@ -44,8 +69,9 @@ class CategoryController {
     this.checkValidation(req)
       const body = req.body;
       let model = await Category.create({
-        'name': body.name,
+        'page_id': body.page_id,
         'title': body.title,
+        'music_type': body.music_type,
         'img': req.files ? req.files.cat_img[0].filename : ""
       })
       res.status(200).send({
@@ -73,7 +99,8 @@ class CategoryController {
         this.#deletePicture(model.img);
         model.img = req.files.cat_img[0].filename;
     }
-      model.name = body.name
+      model.page_id = body.page_id
+      model.music_type = body.music_type
       model.title = body.title
       model.save()
       res.status(200).send({

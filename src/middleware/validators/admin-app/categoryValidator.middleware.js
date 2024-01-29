@@ -1,7 +1,7 @@
 const { body } = require('express-validator');
 
 exports.category = [
-   body('name')
+   body('title')
         .exists()
         .withMessage('name is required')
         .isLength({min: 3, max: 300})

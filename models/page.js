@@ -1,32 +1,20 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('Category', {
+  return sequelize.define('Page', {
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    page_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      unique: "page_id"
-    },
-    title: {
+    name: {
       type: DataTypes.STRING(255),
-      allowNull: false
-    },
-    img: {
-      type: DataTypes.STRING(255),
-      allowNull: false
-    },
-    music_type: {
-      type: DataTypes.STRING(255),
-      allowNull: true
+      allowNull: true,
+      unique: "name"
     }
   }, {
     sequelize,
-    tableName: 'category',
+    tableName: 'page',
     timestamps: false,
     indexes: [
       {
@@ -38,11 +26,11 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
-        name: "page_id",
+        name: "name",
         unique: true,
         using: "BTREE",
         fields: [
-          { name: "page_id" },
+          { name: "name" },
         ]
       },
     ]

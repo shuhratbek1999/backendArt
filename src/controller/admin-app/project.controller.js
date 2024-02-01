@@ -90,9 +90,11 @@ class ProjectController {
     this.checkValidation(req)
     // req.body.Images = JSON.parse(req.body.Images)
     req.body.Images = []
-    for(let key of req.files.images){
-         req.body.Images.push(key)
-      }
+    if(req.files.images){
+      for(let key of req.files.images){
+        req.body.Images.push(key)
+    }
+    }
       const {Facts,Images,Urls, ...body} = req.body;
       let date_time = Math.floor(new Date().getTime() / 1000);
       let model = await Project.create({
@@ -105,8 +107,10 @@ class ProjectController {
         'extra_description': body.extra_description,
         'user_id': body.user_id
       })
+      if(Images.length > 0){
+        this.#addImages(Images, model)
+      }
      this.#addFatcts(Facts, model)
-     this.#addImages(Images, model)
      this.#addUrl(Urls, model)
       res.status(200).send({
         error: false,  
@@ -119,8 +123,10 @@ class ProjectController {
    update = async(req,res,next) => {
       this.checkValidation(req)
       req.body.Images = []
-      for(let key of req.files.images){
+      if(req.files.images){
+        for(let key of req.files.images){
           req.body.Images.push(key)
+      }
       }
       const {Facts,Images,Urls, ...body} = req.body;
       let date_time = Math.floor(new Date().getTime() / 1000);
@@ -144,8 +150,10 @@ class ProjectController {
       model.extra_description = body.extra_description
       model.user_id = body.user_id
       model.save()
+      if(Images.length > 0){
+        this.#addImages(Images, model)
+      }
       this.#addFatcts(Facts, model, false)
-      this.#addImages(Images, model, false)
       this.#addUrl(Urls, model, false)
       res.status(200).send({
         error: false,

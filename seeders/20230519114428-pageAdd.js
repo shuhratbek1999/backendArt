@@ -5,37 +5,13 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     return queryInterface.bulkInsert('page', [
       {
-        "name": "Projects"
-      },
-      {
-        "name": "Visual Arts"
-      },
-      {
-        "name": "Live Arts"
-      },
-      {
-        "name": "Education"
-      },
-      {
-        "name": "Screenings"
-      },
-      {
-        "name": "Publications"
-      },
-      {
-        "name": "Media"
-      },
-      {
-        "name": "News"
-      },
-      {
         "name": "About us"
       }
     ])
   },
 
   async down (queryInterface, Sequelize) {
-    return queryInterface.bulkDelete('user', null, {})
+    return queryInterface.bulkDelete('page', null, {})
     /**
      * Add commands to revert seed here.
      *

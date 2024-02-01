@@ -45,6 +45,37 @@ class CategoryController {
         data: model
     });
    }
+   getCategory = async(req,res, next) => {
+      let model = await Category.findAll({
+        include:[
+          {
+            model: Page, 
+            as: 'page', 
+            where: {
+              name: req.params.category
+            }
+          },
+          {
+            model: Project,
+            as: 'project',
+            include:[
+              {model: Images, as: 'Images'},
+              {model: Fact, as: 'Fact'},
+              {model: Url, as: 'Url'}
+            ]
+          }
+        ]
+      })
+      if(!model){
+        throw new HttpException(404, 'data not found')
+      }
+      res.send({
+        error: false,
+        error_code: 200,
+        data: model,
+        message: "Malumot keldi"
+      })
+   }
    getAlls = async(req,res,next) => {
     const model = await Category.findAll({
       attributes:[

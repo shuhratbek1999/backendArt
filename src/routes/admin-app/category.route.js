@@ -35,6 +35,7 @@ const  {category}  = require('../../middleware/validators/admin-app/categoryVali
 router.get('/all', auth(), awaitHandlerFactory(categoryController.getAll));
 router.get('/alls', auth(), awaitHandlerFactory(categoryController.getAlls));
 router.get('/one/:id',   auth(), awaitHandlerFactory(categoryController.getOne));
+router.get('/categoryAll/:category',   auth(), awaitHandlerFactory(categoryController.getCategory));
 router.post('/create',upload.fields([{name: 'cat_img', maxCount: 1}]), category, awaitHandlerFactory(categoryController.create));
 router.patch('/update/:id',upload.fields([{name: 'cat_img', maxCount: 1}]), category, auth(), awaitHandlerFactory(categoryController.update));
 router.delete('/delete/:id', auth(), awaitHandlerFactory(categoryController.delete));

@@ -6,7 +6,7 @@ module.exports = {
     const transaction = await queryInterface.sequelize.transaction();
        try{
         await queryInterface.sequelize.query(
-          'ALTER TABLE `category` DROP INDEX IF EXISTS page_id;',
+          'ALTER TABLE category DROP INDEX IF EXISTS page_id',
           {
             type: Sequelize.QueryTypes.UPDATE
           }

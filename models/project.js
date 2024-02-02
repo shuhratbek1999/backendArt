@@ -16,24 +16,23 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     },
     aftor_name: {
-      type: DataTypes.STRING(255),
-      allowNull: false
+      type: DataTypes.STRING(255)
     },
     aftor_img: {
-      type: DataTypes.STRING(255),
-      allowNull: true
+      type: DataTypes.STRING(255)
     },
     description: {
-      type: DataTypes.TEXT,
-      allowNull: false
+      type: DataTypes.TEXT
     },
     extra_description: {
       type: DataTypes.TEXT,
       allowNull: true
     },
     date_time: {
-      type: DataTypes.INTEGER,
-      allowNull: false
+      type: DataTypes.INTEGER
+    },
+    cart: {
+      type: DataTypes.STRING
     },
     user_id: {
       type: DataTypes.INTEGER,

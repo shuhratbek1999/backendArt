@@ -96,11 +96,11 @@ class ProjectController {
     }
     }
       const {Facts,Images,Urls, ...body} = req.body;
-      let date_time = Math.floor(new Date().getTime() / 1000);
       let model = await Project.create({
         'category_id': body.category_id, 
         'name': body.name,
-        'date_time': date_time,
+        'cart': body.cart,
+        'date_time': body.date_time,
         'aftor_name': body.aftor_name,
         'aftor_img': req.files.project_img ? req.files.project_img[0].filename : "",
         'description': body.description,
@@ -144,7 +144,8 @@ class ProjectController {
       }
       model.category_id = body.category_id
       model.name = body.name
-      model.date_time = date_time
+      model.cart = body.cart
+      model.date_time = body.date_time
       model.aftor_name = body.aftor_name
       model.description = body.description
       model.extra_description = body.extra_description

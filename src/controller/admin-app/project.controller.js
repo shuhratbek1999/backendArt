@@ -97,7 +97,6 @@ class ProjectController {
     }
     }
     const {Facts,Images,Urls, ...body} = req.body;
-    console.log(body.date_time)
       let model = await Project.create({
         'category_id': body.category_id, 
         'name': body.name,

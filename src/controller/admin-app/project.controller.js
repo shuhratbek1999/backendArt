@@ -95,7 +95,8 @@ class ProjectController {
         req.body.Images.push(key)
     }
     }
-      const {Facts,Images,Urls, ...body} = req.body;
+    const {Facts,Images,Urls, ...body} = req.body;
+    console.log(body)
       let model = await Project.create({
         'category_id': body.category_id, 
         'name': body.name,

@@ -97,12 +97,12 @@ class ProjectController {
     }
     }
     const {Facts,Images,Urls, ...body} = req.body;
-    console.log(body)
+    console.log(!body.date_time)
       let model = await Project.create({
         'category_id': body.category_id, 
         'name': body.name,
         'cart': body.cart,
-        'date_time': body.date_time == null ? date_time : body.date_time,
+        'date_time': !body.date_time ? date_time : body.date_time,
         'aftor_name': body.aftor_name,
         'aftor_img': req.files.project_img ? req.files.project_img[0].filename : "",
         'description': body.description,
@@ -147,7 +147,7 @@ class ProjectController {
       model.category_id = body.category_id
       model.name = body.name
       model.cart = body.cart
-      model.date_time = body.date_time == null ? date_time : body.date_time,
+      model.date_time = !body.date_time ? date_time : body.date_time,
       model.aftor_name = body.aftor_name
       model.description = body.description
       model.extra_description = body.extra_description

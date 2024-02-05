@@ -7,19 +7,19 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       primaryKey: true
     },
-    insta_url: {
+    name: {
       type: DataTypes.STRING(255),
       allowNull: true
     },
-    facebook_url: {
+    link: {
       type: DataTypes.STRING(255),
       allowNull: true
     },
-    you_tube_url: {
+    type: {
       type: DataTypes.STRING(255),
       allowNull: true
     },
-    sayt_url: {
+    color: {
       type: DataTypes.STRING(255),
       allowNull: true
     },

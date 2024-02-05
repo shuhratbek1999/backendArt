@@ -203,21 +203,22 @@ class ProjectController {
    }
    #addUrl = async(arr, model, insert = true) => {
     arr = arr ? JSON.parse(arr) : ''
-       if(!insert){
-          await this.#deleteUrl(model.id)
-       }
+    console.log(arr)
+    if(!insert){
+       await this.#deleteUrl(model.id)
+    }
+    if(arr.length > 0){
        for(let key of arr){
-        if(key.you_tube_url.length>0 || key.insta_url.length>0 || key.facebook_url.length>0 || key.sayt_url){
-          let table = {
-            insta_url: key.insta_url,
-            facebook_url: key.facebook_url,
-            you_tube_url: key.you_tube_url,
-            sayt_url: key.sayt_url,
+          let url = {
+            name: key.name,
+            link: key.link,
+            type: key.type,
+            color: key.color,
             doc_id: model.id
           }
-           await Url.create(table)
-        }
+          await Url.create(url)
        }
+    }
    }
    #deleteFact = async(doc_id) => {
       await Fact.destroy({where:{ doc_id: doc_id}})

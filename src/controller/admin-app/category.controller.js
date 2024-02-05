@@ -87,7 +87,16 @@ class CategoryController {
         [sequelize.literal('page.name'), 'name']
       ],
         include:[
-          {model: Page, as: 'page', attributes: []}
+          {model: Page, as: 'page', attributes: []},
+          {
+            model: Project,
+            as: 'project',
+            include:[
+              {model: Images, as: 'Images'},
+              {model: Fact, as: 'Fact'},
+              {model: Url, as: 'Url'}
+            ]
+          }
         ]
     }) 
     res.status(200).send({

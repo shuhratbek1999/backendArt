@@ -12,16 +12,16 @@ module.exports = {
             allowNull: false,
             primaryKey: true
           },
-          insta_url:{
+          name:{
             type: Sequelize.STRING
           },
-          facebook_url:{
+          link:{
             type: Sequelize.STRING
           },
-          you_tube_url:{
+          type:{
             type: Sequelize.STRING
           },
-          sayt_url:{
+          color:{
             type: Sequelize.STRING
           },
           doc_id:{

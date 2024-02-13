@@ -203,7 +203,6 @@ class ProjectController {
    }
    #addUrl = async(arr, model, insert = true) => {
     arr = arr ? JSON.parse(arr) : ''
-    console.log(arr)
     if(!insert){
        await this.#deleteUrl(model.id)
     }

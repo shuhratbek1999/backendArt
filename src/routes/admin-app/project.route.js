@@ -32,8 +32,8 @@ var upload = multer({
 })
 const  {project}  = require('../../middleware/validators/admin-app/projectValidator.middleware');
 router.get('/all', awaitHandlerFactory(ProjectController.getAll));
-router.get('/one/:id',   auth(), awaitHandlerFactory(ProjectController.getOne));
-router.post('/create',upload.fields([{name: 'images', maxCount: 8},{name: 'project_img', maxCount: 1}]), awaitHandlerFactory(ProjectController.create))
-router.patch('/update/:id', upload.fields([{name: 'images', maxCount: 15},{name: 'project_img', maxCount: 1}]), project, auth(), awaitHandlerFactory(ProjectController.update));
+router.get('/one/:id', awaitHandlerFactory(ProjectController.getOne));
+router.post('/create',auth(),upload.fields([{name: 'images', maxCount: 8},{name: 'project_img', maxCount: 1}]), awaitHandlerFactory(ProjectController.create))
+router.patch('/update/:id',auth(), upload.fields([{name: 'images', maxCount: 15},{name: 'project_img', maxCount: 1}]), project, auth(), awaitHandlerFactory(ProjectController.update));
 router.delete('/delete/:id', auth(), awaitHandlerFactory(ProjectController.delete));
 module.exports = router;

@@ -5,6 +5,6 @@ const auth = require('../../middleware/auth.middleware');
 const Role = require('../../utils/roles.utils');
 const awaitHandlerFactory = require('../../middleware/awaitHandlerFactory.middleware');
 
-router.get('/all', auth(), awaitHandlerFactory(categoryController.getAll));
-router.get('/one/:id',   auth(), awaitHandlerFactory(categoryController.getOne));
+router.get('/all', awaitHandlerFactory(categoryController.getAll));
+router.get('/one/:id', awaitHandlerFactory(categoryController.getOne));
 module.exports = router;

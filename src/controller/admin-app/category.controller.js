@@ -147,7 +147,7 @@ class CategoryController {
       res.status(200).send({
         error: false,
         error_code: 200,
-        message: 'Malumot tahrirlandi',
+        message: 'updated',
         data: model
     });
    }

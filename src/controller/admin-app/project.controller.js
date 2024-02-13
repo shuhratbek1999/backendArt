@@ -39,7 +39,7 @@ class ProjectController {
           ]
       })
       if(!model){
-        throw new HttpException(404, "bu id da malumot yo\'q")
+        throw new HttpException(404, "no information found")
     }
     res.status(200).send({
         error: false,
@@ -137,7 +137,7 @@ class ProjectController {
         }
       })
       if(!model){
-        throw HttpException(404, 'Malumot topilmadi')
+        throw HttpException(404, 'no information found')
       }
       if(body.change_img === 'true'){
         this.#deletePicture(model.aftor_img);
@@ -160,7 +160,7 @@ class ProjectController {
       res.status(200).send({
         error: false,
         error_code: 200,
-        message: 'Malumot tahrirlandi',
+        message: 'Updated',
         data: model
     });
    }

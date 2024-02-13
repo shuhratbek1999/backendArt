@@ -20,20 +20,20 @@ class UserController {
             raw: true
         });
         if(!model){
-            throw new HttpException(404, 'foydalanuvchi topilmadi')
+            throw new HttpException(404, 'end pound not found')
         }
         const isMatch = await bcrypt.compare(password, model.password)
         // console.log(isMatch,model); 
         delete model['password'];
         if(!isMatch){
-            throw new HttpException(404, "Parol noto'g'ri kiritildi")
+            throw new HttpException(404, "password wrong")
         }
 
         const token = jwt.sign({ user_id: model.id.toString() }, secret_jwt, {
             expiresIn: '864h'
         });
         if(!token){
-           throw new HttpException(404, "token mavjud emas")
+           throw new HttpException(404, "token not found")
         }
         model.token = token
         res.status(200).send({
@@ -116,7 +116,7 @@ class UserController {
         res.status(200).send({
             error: false,
             error_code: 200,
-            message: 'Malumotlar tahrirlandi',
+            message: 'updated',
             data: model
         });
     }

@@ -118,7 +118,7 @@ class CategoryController {
       res.status(200).send({
         error: false,  
         error_code: 200,
-        message: 'Malumot qo\'shildi',
+        message: 'create information',
         data: model
     });
    }

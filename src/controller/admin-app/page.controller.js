@@ -19,7 +19,9 @@ class PageController {
     });
   }
   getAll = async(req,res,next) => {
-    const model = await Page.findAll()
+    const model = await Page.findAll({
+      order:['id','DESC']
+    })
     res.status(200).send({
         error: false,
         error_code: 200,

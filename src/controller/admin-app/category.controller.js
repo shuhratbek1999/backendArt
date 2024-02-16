@@ -36,7 +36,8 @@ class CategoryController {
           ]
         },
         {model: Page, as: 'page'}
-      ]
+      ],
+      order:['id','DESC']
     }); 
     res.status(200).send({
         error: false,
@@ -64,7 +65,8 @@ class CategoryController {
               {model: Url, as: 'Url'}
             ]
           }
-        ]
+        ],
+        order:['id','DESC']
       })
       if(!model){
         throw new HttpException(404, 'data not found')

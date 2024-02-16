@@ -17,10 +17,14 @@ const storage = multer.diskStorage({
 })
 
 const fileFilter = (req, file, cb) => {
-    if(file.mimetype == 'image/jpeg' || file.mimetype == 'image/png'){
-        cb(null, true)
-    }else{
-        cb(null, false)
+    const fileTypes = /jpeg|jpg|png|gif/;
+    const mimetype = fileTypes.test(file.mimetype);
+    const extname = fileTypes.test(path.extname(file.originalname));
+    if (mimetype && extname) {
+      return cb(null, true);
+    }
+    else{
+        cb("Error: El archivo debe ser una imagen válida");
     }
 }
 const upload = multer({

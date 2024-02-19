@@ -37,7 +37,9 @@ class ProjectController {
               as: 'Url'
             }
           ],
-          order:['id','DESC']
+          order:[
+            ['id','ASC']
+          ]
       })
       if(!model){
         throw new HttpException(404, "no information found")
@@ -79,7 +81,9 @@ class ProjectController {
             as: 'Url'
           }
         ],
-        order:['id','DESC']
+        order:[
+          ['id','ASC']
+        ]
     }); 
     res.status(200).send({
         error: false,

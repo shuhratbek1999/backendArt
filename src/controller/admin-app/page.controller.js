@@ -20,7 +20,9 @@ class PageController {
   }
   getAll = async(req,res,next) => {
     const model = await Page.findAll({
-      order:['id','DESC']
+      order:[
+        ['id', 'ASC']
+      ]
     })
     res.status(200).send({
         error: false,

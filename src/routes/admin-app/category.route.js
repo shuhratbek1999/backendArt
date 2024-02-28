@@ -41,6 +41,7 @@ router.get('/all', awaitHandlerFactory(categoryController.getAll));
 router.get('/alls', awaitHandlerFactory(categoryController.getAlls));
 router.get('/one/:id', awaitHandlerFactory(categoryController.getOne));
 router.get('/categoryAll/:category',  awaitHandlerFactory(categoryController.getCategory));
+router.get('/categoryBol/:category',  awaitHandlerFactory(categoryController.getCategorys));
 router.post('/create',auth(), upload.fields([{name: 'cat_img', maxCount: 1}]), category, awaitHandlerFactory(categoryController.create));
 router.patch('/update/:id',auth(), upload.fields([{name: 'cat_img', maxCount: 1}]), category, auth(), awaitHandlerFactory(categoryController.update));
 router.delete('/delete/:id', auth(), awaitHandlerFactory(categoryController.delete));

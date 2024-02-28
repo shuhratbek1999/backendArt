@@ -6,6 +6,7 @@ const userRouter = require('../routes/admin-app/user.route');
 const categoryRouter = require('../routes/admin-app/category.route');
 const ProjectRouter = require('../routes/admin-app/project.route');
 const PageRouter = require('../routes/admin-app/page.route');
+const FooterRouter = require('../routes/admin-app/footer.route');
 
 const HttpException = require('../utils/HttpException.utils');
 
@@ -21,6 +22,7 @@ module.exports = function(app){
         app.use(`/api/v1/admin-app/category`, categoryRouter);
         app.use(`/api/v1/admin-app/project`, ProjectRouter);
         app.use(`/api/v1/admin-app/page`, PageRouter);
+        app.use(`/api/v1/admin-app/footer`, FooterRouter);
         app.use(`/api/v1/admin-app/images`, express.static('upload'));
         app.use(`/api/v1/admin-app/cat_img`, express.static('upload'));
 

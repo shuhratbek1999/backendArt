@@ -16,23 +16,24 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     },
     aftor_name: {
-      type: DataTypes.STRING(255)
+      type: DataTypes.STRING(255),
+      allowNull: false
     },
     aftor_img: {
-      type: DataTypes.STRING(255)
+      type: DataTypes.STRING(255),
+      allowNull: true
     },
     description: {
-      type: DataTypes.TEXT
+      type: DataTypes.TEXT,
+      allowNull: false
     },
     extra_description: {
       type: DataTypes.TEXT,
       allowNull: true
     },
     date_time: {
-      type: DataTypes.INTEGER
-    },
-    cart: {
-      type: DataTypes.STRING
+      type: DataTypes.INTEGER,
+      allowNull: false
     },
     user_id: {
       type: DataTypes.INTEGER,
@@ -41,6 +42,10 @@ module.exports = function(sequelize, DataTypes) {
         model: 'user',
         key: 'id'
       }
+    },
+    cart: {
+      type: DataTypes.TEXT,
+      allowNull: true
     }
   }, {
     sequelize,

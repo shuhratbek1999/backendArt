@@ -1,4 +1,4 @@
-const {Category, Project, Images, Fact, Url, Page} = require('../../../models/init-models')
+const {Category, Project, Images, Fact, Url, Page, ProjectBol, Urls, Facts} = require('../../../models/init-models')
 const HttpException = require('../../utils/HttpException.utils')
 const {validationResult} = require('express-validator')
 const fs = require('fs')
@@ -82,6 +82,40 @@ class CategoryController {
         message: "Malumot keldi"
       })
    }
+   getCategorys = async(req,res, next) => {
+    let model = await Category.findAll({
+      include:[
+        {
+          model: Page, 
+          as: 'page', 
+          where: {
+            name: req.params.category
+          }
+        },
+        {
+          model: ProjectBol,
+          as: 'projects',
+          include:[
+            {model: Images, as: 'Images'},
+            {model: Facts, as: 'Factss'},
+            {model: Urls, as: 'Urlss'}
+          ]
+        }
+      ],
+      order:[
+        ['id','ASC']
+      ]
+    })
+    if(!model){
+      throw new HttpException(404, 'data not found')
+    }
+    res.send({
+      error: false,
+      error_code: 200,
+      data: model,
+      message: "Malumot keldi"
+    })
+ }
    getAlls = async(req,res,next) => {
     const model = await Category.findAll({
       attributes:[

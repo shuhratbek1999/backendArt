@@ -8,23 +8,23 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: true
     },
     name: {
-      type: DataTypes.STRING(255),
+      type: DataTypes.STRING(300),
       allowNull: true
     },
     link: {
-      type: DataTypes.STRING(255),
-      allowNull: true
-    },
-    type: {
-      type: DataTypes.STRING(255),
-      allowNull: true
-    },
-    color: {
-      type: DataTypes.STRING(255),
+      type: DataTypes.STRING(500),
       allowNull: true
     },
     doc_id: {
       type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    type: {
+      type: DataTypes.STRING(100),
+      allowNull: true
+    },
+    color: {
+      type: DataTypes.STRING(100),
       allowNull: true
     }
   }, {

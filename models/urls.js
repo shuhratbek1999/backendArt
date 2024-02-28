@@ -1,31 +1,35 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('Category', {
+  return sequelize.define('Urls', {
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    page_id: {
+    name: {
+      type: DataTypes.STRING(255),
+      allowNull: true
+    },
+    link: {
+      type: DataTypes.STRING(255),
+      allowNull: true
+    },
+    type: {
+      type: DataTypes.STRING(255),
+      allowNull: true
+    },
+    color: {
+      type: DataTypes.STRING(255),
+      allowNull: true
+    },
+    doc_id: {
       type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    title: {
-      type: DataTypes.STRING(255),
-      allowNull: false
-    },
-    img: {
-      type: DataTypes.STRING(255),
-      allowNull: false
-    },
-    music_type: {
-      type: DataTypes.STRING(255),
       allowNull: true
     }
   }, {
     sequelize,
-    tableName: 'category',
+    tableName: 'urls',
     timestamps: false,
     indexes: [
       {

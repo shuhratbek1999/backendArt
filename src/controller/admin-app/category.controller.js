@@ -199,6 +199,21 @@ class CategoryController {
     }
     return 1;
 }
+imgdelete = async(req,res,next) => {
+  let model = await Images.destroy({
+    where:{
+        id: req.params.id
+    }
+  }) 
+  if(!model){  
+    throw HttpException(404, "data not found")
+  }
+  res.status(200).send({
+    error: false,
+    error_code: 200,
+    message: 'Deleted'
+  })
+}
    delete = async(req,res,next) => {
     let cat = await Category.findOne({
       where:{

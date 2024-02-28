@@ -45,4 +45,5 @@ router.get('/categoryBol/:category',  awaitHandlerFactory(categoryController.get
 router.post('/create',auth(), upload.fields([{name: 'cat_img', maxCount: 1}]), category, awaitHandlerFactory(categoryController.create));
 router.patch('/update/:id',auth(), upload.fields([{name: 'cat_img', maxCount: 1}]), category, auth(), awaitHandlerFactory(categoryController.update));
 router.delete('/delete/:id', auth(), awaitHandlerFactory(categoryController.delete));
+router.delete('/imgdelete/:id', auth(), awaitHandlerFactory(categoryController.imgdelete));
 module.exports = router;

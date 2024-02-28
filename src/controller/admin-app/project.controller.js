@@ -190,26 +190,28 @@ class ProjectController {
    }
    #addBol = async(arr,model,insert=true) => {
       arr = arr ? JSON.parse(arr) : ''
-      const {Factss,Urlss, ...data} = arr[0]
-      if(!insert){
-        await this.#addFatctsBol(Factss,bols,false)
-        await this.#addUrlBol(Urlss,bols,false)
-        await this.#deleteBol(model.id)
-     }
-      let bol = {
-        category_id: model.category_id,
-        name: data.name,
-        aftor_name: data.aftor_name,
-        aftor_img: model.aftor_img,
-        cart: data.cart,
-        description: data.description,
-        extra_description: data.extra_description,
-        date_time: model.date_time,
-        doc_id: model.id
+      if(arr.length > 0){
+        const {Factss,Urlss, ...data} = arr[0] 
+        if(!insert){
+          await this.#addFatctsBol(Factss,bols,false)
+          await this.#addUrlBol(Urlss,bols,false)
+          await this.#deleteBol(model.id)
+       }
+        let bol = {
+          category_id: model.category_id,
+          name: data.name,
+          aftor_name: data.aftor_name,
+          aftor_img: model.aftor_img,
+          cart: data.cart,
+          description: data.description,
+          extra_description: data.extra_description,
+          date_time: model.date_time,
+          doc_id: model.id
+        }
+       let bols = await ProjectBol.create(bol)
+       await this.#addFatctsBol(Factss,bols)
+       await this.#addUrlBol(Urlss,bols)
       }
-     let bols = await ProjectBol.create(bol)
-     await this.#addFatctsBol(Factss,bols)
-     await this.#addUrlBol(Urlss,bols)
    }
    #addFatctsBol = async(arr, model, insert = true) => {
        if(!insert){

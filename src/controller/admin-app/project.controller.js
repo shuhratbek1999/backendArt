@@ -193,8 +193,8 @@ class ProjectController {
       if(arr.length > 0){
         const {Factss,Urlss, ...data} = arr[0] 
         if(!insert){
-          await this.#addFatctsBol(Factss,bols,false)
-          await this.#addUrlBol(Urlss,bols,false)
+          await this.#deleteFactBol(model.id)
+          await this.#deleteUrlBol(model.id)
           await this.#deleteBol(model.id)
        }
         let bol = {

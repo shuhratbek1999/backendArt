@@ -1,35 +1,35 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('Category', {
+  return sequelize.define('Footers', {
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true
     },
-    page_id: {
-      type: DataTypes.INTEGER,
+    location: {
+      type: DataTypes.STRING,
       allowNull: false
     },
-    title: {
+    contact: {
       type: DataTypes.STRING(255),
       allowNull: false
     },
-    titles: {
+    email: {
       type: DataTypes.STRING(255),
       allowNull: false
     },
-    img: {
-      type: DataTypes.STRING(255),
-      allowNull: false
-    },
-    music_type: {
+    founders: {
       type: DataTypes.STRING(255),
       allowNull: true
+    },
+    meneger: {
+      type: DataTypes.STRING(255),
+      allowNull: false
     }
   }, {
     sequelize,
-    tableName: 'category',
+    tableName: 'footers',
     timestamps: false,
     indexes: [
       {

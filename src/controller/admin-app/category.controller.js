@@ -122,6 +122,7 @@ class CategoryController {
         'id',
         'page_id',
         'title',
+        'titles',
         'img',
         'music_type',
         [sequelize.literal('page.name'), 'name']
@@ -152,6 +153,7 @@ class CategoryController {
       let model = await Category.create({
         'page_id': body.page_id,
         'title': body.title,
+        'titles': body.titles,
         'music_type': body.music_type,
         'img': req.files ? req.files.cat_img[0].filename : ""
       })
@@ -183,6 +185,7 @@ class CategoryController {
       model.page_id = body.page_id
       model.music_type = body.music_type
       model.title = body.title
+      model.titles = body.titles
       model.save()
       res.status(200).send({
         error: false,

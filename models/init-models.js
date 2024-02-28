@@ -4,6 +4,7 @@ var _Category = require("./category");
 var _Fact = require("./fact");
 var _Facts = require("./facts");
 var _Footer = require("./footer");
+var _Footers = require("./footers");
 var _Images = require("./images");
 var _Page = require("./page");
 var _Project = require("./project");
@@ -17,6 +18,7 @@ var _User = require("./user");
   var Fact = _Fact(sequelize, DataTypes);
   var Facts = _Facts(sequelize, DataTypes);
   var Footer = _Footer(sequelize, DataTypes);
+  var Footers = _Footers(sequelize, DataTypes);
   var Images = _Images(sequelize, DataTypes);
   var Page = _Page(sequelize, DataTypes);
   var Project = _Project(sequelize, DataTypes);
@@ -45,6 +47,7 @@ var _User = require("./user");
     Fact,
     Facts,
     Footer,
+    Footers,
     Images,
     Page,
     Project,

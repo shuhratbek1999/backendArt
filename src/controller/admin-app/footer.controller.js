@@ -1,4 +1,4 @@
-const {Footer,Url} = require('../../../models/init-models')
+const {Footer,Url, Footers} = require('../../../models/init-models')
 const HttpException = require('../../utils/HttpException.utils')
 const {validationResult} = require('express-validator')
 const fs = require('fs')
@@ -53,6 +53,7 @@ class footerController {
         'meneger': body.meneger
       })
       this.#addUrl(Urls, model)
+      // this.#addFoters(Foters, model)
       res.status(200).send({
         error: false,  
         error_code: 200,
@@ -79,6 +80,7 @@ class footerController {
       model.meneger = body.meneger
       model.save()
       this.#addUrl(Urls, model, false)
+      // this.#addFoters(Foters, model, false)
       res.status(200).send({
         error: false,
         error_code: 200,
@@ -103,9 +105,30 @@ class footerController {
        }
     }
    }
+   #addFoters = async(arr, model, insert = true) => {
+    if(!insert){
+       await this.#deleteFot(model.id)
+    }
+    if(arr.length > 0){
+       for(let key of arr){
+          let url = {
+            location: key.location,
+            contact: key.contact,
+            email: key.email,
+            founders: key.founders,
+            meneger: key.meneger,
+            doc_id: model.id
+          }
+          await Footers.create(url)
+       }
+    }
+   }
    #deleteUrl = async(doc_id) => {
     await Url.destroy({where:{ doc_id: doc_id}})
-  }
+   }
+  #deleteFot = async(doc_id) => {
+    await Footers.destroy({where:{ doc_id: doc_id}})
+   }
    delete = async(req,res,next) => {
       await this.#deleteUrl(req.params.id)
       let model = await Footer.destroy({

@@ -203,12 +203,19 @@ class CategoryController {
     return 1;
 }
 imgdelete = async(req,res,next) => {
-  let model = await Images.destroy({
+  let imgName = await Images.findOne({
     where:{
-        id: req.params.id
+      id: req.params.id
     }
-  }) 
-  await Imagess.destroy({
+  })
+  if(imgName){
+    await Imagess.destroy({
+      where:{
+          url: imgName.url
+      }
+    }) 
+  }
+  let model = await Images.destroy({
     where:{
         id: req.params.id
     }

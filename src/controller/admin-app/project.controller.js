@@ -319,7 +319,7 @@ class ProjectController {
         }
       })
       if(!model){
-        throw HttpException(404, "malumot mavjud emas")
+        throw HttpException(404, "Data not found")
       }
       res.status(200).send({
         error: false,

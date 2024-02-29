@@ -6,6 +6,7 @@ var _Facts = require("./facts");
 var _Footer = require("./footer");
 var _Footers = require("./footers");
 var _Images = require("./images");
+var _Imagess = require("./imagess");
 var _Page = require("./page");
 var _Project = require("./project");
 var _ProjectBol = require("./project_bol");
@@ -20,6 +21,7 @@ var _User = require("./user");
   var Footer = _Footer(sequelize, DataTypes);
   var Footers = _Footers(sequelize, DataTypes);
   var Images = _Images(sequelize, DataTypes);
+  var Imagess = _Imagess(sequelize, DataTypes);
   var Page = _Page(sequelize, DataTypes);
   var Project = _Project(sequelize, DataTypes);
   var ProjectBol = _ProjectBol(sequelize, DataTypes);
@@ -36,7 +38,7 @@ var _User = require("./user");
   Project.hasMany(Url, {as: 'Url', foreignKey: 'doc_id'})
   ProjectBol.hasMany(Urls, {as: 'Urlss', foreignKey: 'doc_id'})
   ProjectBol.hasMany(Facts, {as: 'Factss', foreignKey: 'doc_id'})
-  ProjectBol.hasMany(Images, {as: 'Images', foreignKey: 'doc_id'})
+  ProjectBol.hasMany(Imagess, {as: 'Imagess', foreignKey: 'doc_id'})
   Category.hasMany(Project, {as: "project", foreignKey: "category_id"})
   Category.hasMany(ProjectBol, {as: "projects", foreignKey: "category_id"})
   Category.belongsTo(Page, {as: "page", foreignKey: "page_id"})
@@ -49,6 +51,7 @@ var _User = require("./user");
     Footer,
     Footers,
     Images,
+    Imagess,
     Page,
     Project,
     ProjectBol,

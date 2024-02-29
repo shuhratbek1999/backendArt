@@ -1,4 +1,4 @@
-const {Category, Project, Images, Fact, Url, Page, ProjectBol, Urls, Facts} = require('../../../models/init-models')
+const {Category, Project, Images, Fact, Url, Page, ProjectBol, Urls, Facts, Imagess} = require('../../../models/init-models')
 const HttpException = require('../../utils/HttpException.utils')
 const {validationResult} = require('express-validator')
 const fs = require('fs')
@@ -96,7 +96,7 @@ class CategoryController {
           model: ProjectBol,
           as: 'projects',
           include:[
-            {model: Images, as: 'Images'},
+            {model: Imagess, as: 'Imagess'},
             {model: Facts, as: 'Factss'},
             {model: Urls, as: 'Urlss'}
           ]

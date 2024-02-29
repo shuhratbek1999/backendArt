@@ -1,4 +1,4 @@
-const {Project,Category, Facts, Urls, Fact, Images, Url, Page,ProjectBol} = require('../../../models/init-models')
+const {Project,Category, Facts, Urls, Fact, Images, Url, Page,ProjectBol, Imagess} = require('../../../models/init-models')
 const HttpException = require('../../utils/HttpException.utils')
 const {validationResult} = require('express-validator')
 const sequelize = require('sequelize')
@@ -125,7 +125,7 @@ class ProjectController {
         this.#addImages(Images, model)
       }
      this.#addFatcts(Facts, model)
-     this.#addBol(ProjectBols, model)
+     this.#addBol(ProjectBols, model,Images)
      this.#addUrl(Urls, model)
       res.status(200).send({
         error: false,  
@@ -170,7 +170,7 @@ class ProjectController {
         this.#addImages(Images, model)
       }
       this.#addFatcts(Facts, model, false)
-      this.#addBol(ProjectBols, model, false)
+      this.#addBol(ProjectBols, model,Images, false)
       this.#addUrl(Urls, model, false)
       res.status(200).send({
         error: false,
@@ -188,7 +188,7 @@ class ProjectController {
       }
       return 1
    }
-   #addBol = async(arr,model,insert=true) => {
+   #addBol = async(arr,model,Images,insert=true) => {
       arr = arr ? JSON.parse(arr) : ''
       if(arr.length > 0){
         const {Factss,Urlss, ...data} = arr[0] 
@@ -211,6 +211,7 @@ class ProjectController {
        let bols = await ProjectBol.create(bol)
        await this.#addFatctsBol(Factss,bols)
        await this.#addUrlBol(Urlss,bols)
+       await this.#addImagess(Images,bols)
       }
    }
    #addFatctsBol = async(arr, model, insert = true) => {
@@ -270,6 +271,21 @@ class ProjectController {
           await Images.create(table)
        }
    }
+   #addImagess = async(arr, model, insert = true) => {
+    if(!insert){
+       for(let key of arr){
+          this.#deletePicture(key.url)
+       }
+       await this.#deleteImgs(model.id)
+    }
+    for(let key of arr){
+      let table = {
+        url: key.filename,
+        doc_id: model.id
+      }
+       await Imagess.create(table)
+    }
+}
    #addUrl = async(arr, model, insert = true) => {
     arr = arr ? JSON.parse(arr) : ''
     if(!insert){
@@ -303,6 +319,9 @@ class ProjectController {
    #deleteImg = async(doc_id) => {
     await Images.destroy({where:{ doc_id: doc_id}})
     }
+    #deleteImgs = async(doc_id) => {
+      await Imagess.destroy({where:{ doc_id: doc_id}})
+      }
     #deleteUrl = async(doc_id) => {
       await Url.destroy({where:{ doc_id: doc_id}})
     }
@@ -311,6 +330,7 @@ class ProjectController {
     await this.#deleteFactBol(req.params.id)
     await this.#deleteUrlBol(req.params.id)
     await this.#deleteImg(req.params.id)
+    await this.#deleteImgs(req.params.id)
     await this.#deleteUrl(req.params.id)
     await this.#deleteBol(req.params.id)
       let model = await Project.destroy({

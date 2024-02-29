@@ -208,6 +208,11 @@ imgdelete = async(req,res,next) => {
         id: req.params.id
     }
   }) 
+  await Imagess.destroy({
+    where:{
+        id: req.params.id
+    }
+  }) 
   if(!model){  
     throw HttpException(404, "data not found")
   }

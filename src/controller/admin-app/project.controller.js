@@ -146,7 +146,7 @@ class ProjectController {
       let {Facts,Images,Urls,ProjectBols,updateImage, ...body} = req.body;
       updateImage = updateImage ? JSON.parse(updateImage) : ''
       for(let key of updateImage){
-         key.url = key.url.replace("http://localhost:3010/api/v1/admin-app/images/","")
+         key.url = key.url.replace("http://157.230.127.240:3001/api/v1/admin-app/images/","")
          Images.push(key)
       }
       // console.log(Images);

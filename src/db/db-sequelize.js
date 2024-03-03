@@ -15,6 +15,7 @@ const db_sequelize = new Sequelize(
         logging,   
     },
 );
+//db_sequelize.query('select 1 + 1',)
 //  db_sequelize.sync({force: true});
 
 module.exports = db_sequelize;

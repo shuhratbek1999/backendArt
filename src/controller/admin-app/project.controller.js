@@ -143,7 +143,13 @@ class ProjectController {
           req.body.Images.push(key)
       }
       }
-      const {Facts,Images,Urls,ProjectBols, ...body} = req.body;
+      let {Facts,Images,Urls,ProjectBols,updateImage, ...body} = req.body;
+      updateImage = updateImage ? JSON.parse(updateImage) : ''
+      for(let key of updateImage){
+         key.url = key.url.replace("http://localhost:3010/api/v1/admin-app/images/","")
+         Images.push(key)
+      }
+      // console.log(Images);
       let date_time = Math.floor(new Date().getTime() / 1000);
       let model = await Project.findOne({
         where:{
@@ -167,7 +173,7 @@ class ProjectController {
       model.user_id = body.user_id
       model.save()
       if(Images.length > 0){
-        this.#addImages(Images, model)
+        this.#addImages(Images, model,false)
       }
       this.#addFatcts(Facts, model, false)
       this.#addBol(ProjectBols, model,Images, false)
@@ -176,7 +182,7 @@ class ProjectController {
         error: false,
         error_code: 200,
         message: 'Updated',
-        data: model
+        data: 'model'
     });
    }
    #deletePicture = (file) => {
@@ -192,9 +198,13 @@ class ProjectController {
       arr = arr ? JSON.parse(arr) : ''
       if(arr.length > 0){
         const {Factss,Urlss, ...data} = arr[0] 
+        let modelBol;
         if(!insert){
-          await this.#deleteFactBol(model.id)
-          await this.#deleteUrlBol(model.id)
+          modelBol = await ProjectBol.findOne({
+            where:{
+               doc_id: model.id
+            }
+          })
           await this.#deleteBol(model.id)
        }
         let bol = {
@@ -209,24 +219,31 @@ class ProjectController {
           doc_id: model.id
         }
        let bols = await ProjectBol.create(bol)
-       await this.#addFatctsBol(Factss,bols)
-       await this.#addUrlBol(Urlss,bols)
-       await this.#addImagess(Images,bols)
+       if(insert){
+        await this.#addFatctsBol(Factss,bols,modelBol)
+        await this.#addUrlBol(Urlss,bols,modelBol)
+        await this.#addImagess(Images,bols,modelBol)
+       }
+       else{
+        await this.#addFatctsBol(Factss,bols,modelBol,false)
+        await this.#addUrlBol(Urlss,bols,modelBol,false)
+        await this.#addImagess(Images,bols,modelBol,false)
+       }
       }
    }
-   #addFatctsBol = async(arr, model, insert = true) => {
+   #addFatctsBol = async(arr, bols,model, insert = true) => {
        if(!insert){
           await this.#deleteFactBol(model.id)
        }
        for(let key of arr){
          let table = {
            text: key.text,
-           doc_id: model.id
+           doc_id: bols.id
          }
           await Facts.create(table)
        }
    }
-   #addUrlBol = async(arr, model, insert = true) => {
+   #addUrlBol = async(arr, bols,model, insert = true) => {
     if(!insert){
        await this.#deleteUrlBol(model.id)
     }
@@ -237,7 +254,7 @@ class ProjectController {
             link: key.link,
             type: key.type,
             color: key.color,
-            doc_id: model.id
+            doc_id: bols.id
           }
           await Urls.create(url)
        }
@@ -265,13 +282,13 @@ class ProjectController {
        }
        for(let key of arr){
          let table = {
-           url: key.filename,
+           url: key.filename ? key.filename : key.url,
            doc_id: model.id
          }
           await Images.create(table)
        }
    }
-   #addImagess = async(arr, model, insert = true) => {
+   #addImagess = async(arr, bols,model, insert = true) => {
     if(!insert){
        for(let key of arr){
           this.#deletePicture(key.url)
@@ -280,8 +297,8 @@ class ProjectController {
     }
     for(let key of arr){
       let table = {
-        url: key.filename,
-        doc_id: model.id
+        url: key.filename ? key.filename : key.url,
+        doc_id: bols.id
       }
        await Imagess.create(table)
     }

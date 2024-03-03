@@ -69,7 +69,7 @@ class CategoryController {
           }
         ],
         order:[
-          ['id','ASC']
+          [{model:Project,as:'project'},'id','DESC']
         ]
       })
       if(!model){
@@ -103,7 +103,7 @@ class CategoryController {
         }
       ],
       order:[
-        ['id','ASC']
+        [{model:ProjectBol,as:'projects'},'id','DESC']
       ]
     })
     if(!model){

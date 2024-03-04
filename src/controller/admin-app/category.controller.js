@@ -149,13 +149,14 @@ class CategoryController {
    }
    create = async(req,res,next) => {
     this.checkValidation(req)
-      const body = req.body;
+      let body = req.body;
+      let img = req.files.cat_img[0].filename.replace(" ","")
       let model = await Category.create({
         'page_id': body.page_id,
         'title': body.title,
         'titles': body.titles,
         'music_type': body.music_type,
-        'img': req.files ? req.files.cat_img[0].filename : ""
+        'img': req.files ? img : ""
       })
       res.status(200).send({
         error: false,  

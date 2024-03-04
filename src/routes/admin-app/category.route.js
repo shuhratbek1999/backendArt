@@ -13,6 +13,7 @@ const storage = multer.diskStorage({
     },
     filename: function(req, file, cb){
         // console.log(file,"file")
+        file.originalname = file.originalname.replace(" ","")
         cb(null, new Date().toISOString().replace(/:/g, '-') + '-' + file.originalname)
     }
 })

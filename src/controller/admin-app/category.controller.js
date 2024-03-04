@@ -149,14 +149,13 @@ class CategoryController {
    }
    create = async(req,res,next) => {
     this.checkValidation(req)
-      let body = req.body;
-      let img = req.files.cat_img[0].filename.replace(" ","")
+      const body = req.body;
       let model = await Category.create({
         'page_id': body.page_id,
         'title': body.title,
         'titles': body.titles,
         'music_type': body.music_type,
-        'img': req.files ? img : ""
+        'img': req.files ? req.files.cat_img[0].filename : ""
       })
       res.status(200).send({
         error: false,  
@@ -168,7 +167,7 @@ class CategoryController {
 
    update = async(req,res,next) => {
       this.checkValidation(req)
-      let body = req.body;
+      const body = req.body
       let model = await Category.findOne({
         where:{
             id: req.params.id
@@ -181,8 +180,7 @@ class CategoryController {
       // console.log(body.change_image, req.files.cat_img[0]);
       if(body.change_image === 'true'){
         this.#deletePicture(model.img);
-        let img = req.files.cat_img[0].filename.replace(" ","")
-        model.img = img
+        model.img = req.files.cat_img[0].filename;
     }
       model.page_id = body.page_id
       model.music_type = body.music_type

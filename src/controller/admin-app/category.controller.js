@@ -169,7 +169,6 @@ class CategoryController {
    update = async(req,res,next) => {
       this.checkValidation(req)
       let body = req.body;
-      let img = req.files.cat_img[0].filename.replace(" ","")
       let model = await Category.findOne({
         where:{
             id: req.params.id
@@ -178,8 +177,11 @@ class CategoryController {
       if(!model){
         throw HttpException(404, 'Malumot topilmadi')
       }
+      // console.log(typeof body.change_image)
+      // console.log(body.change_image, req.files.cat_img[0]);
       if(body.change_image === 'true'){
         this.#deletePicture(model.img);
+        let img = req.files.cat_img[0].filename.replace(" ","")
         model.img = img
     }
       model.page_id = body.page_id
